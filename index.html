@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FiboCoding</title>
+</head>
+<body>
+
+  <h1>Directory of solved coding problems and reminders in Fibonacci sequence</h1>
+
+  <div>Enter details of question solved today: </div>
+  <form action="/questions" method="POST">
+    <input type="text" placeholder="name" name="name">
+    <input type="text" placeholder="link" name="link">
+    <button type="submit">Submit</button>
+  </form>
+  <br> <br> <br>
+  <h3>Questions for Today:</h3>
+  <ul id = 'questionsList'>
+
+  </ul>
+
+  <script>
+    fetch('http://localhost:3000/questions').then((response) => {
+      if(response){
+        if(response.status !== 200){
+          console.log('Looks like there was a problem. Status Code: ' +
+          response.status);
+          return;
+        }
+        response.json().then((questions) => {
+          const ul = document.getElementById('questionsList');
+          questions.forEach((question) => {
+            const li = document.createElement('li');
+            const text = question.name + ': ' + question.link;
+            li.appendChild(document.createTextNode(text));
+            ul.appendChild(li);
+          });
+        });
+      }
+    }).catch((err) => {
+    console.log('Fetch Error :-S', err);
+  });
+  </script>
+</body>
+</html>
