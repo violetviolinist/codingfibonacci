@@ -37,7 +37,9 @@ exports.getQuestions = (req, res, next) => {
             const currentDate = new Date().getDate();
             const todaysQuestions = questions.filter( question => {
                 const questionDate = question.date.getDate();
-                const dayDifference = parseInt((questionDate - currentDate) / (1000 * 60 * 60 * 24));
+                console.log('questionDate: ' + questionDate);
+                const dayDifference = parseInt((currentDate - questionDate) / (1000 * 60 * 60 * 24));
+                console.log('dayDifference: ' + dayDifference);
                 const dayDifferenceString = dayDifference.toString();
                 return dayDifference in fibNumbers;
             }).map(question => {
